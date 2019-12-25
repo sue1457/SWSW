@@ -1,0 +1,75 @@
+참고자료 : 신찬수의 Algorithms + Python
+
+2 : 변수와 데이터 타입
+
+
+1~4. 너무 쉬움
+
+
+5. data type
+
+활용)
+a = 1
+tpye(a)
+
+import sys     # sys란 이름의 모듈을 사용 - C에서 헤더 파일 .h를 include하는 것과 유사 
+
+a = 1
+sys.getsizeof(a)
+
+a = 10**20     # 10**20은 10^20을 의미함 
+
+i. a = 1인 경우에 할당된 byte 수가 16 byte임 
+ii. a = 10**20으로 a의 값이 커지면 16 byte에 저장할 수 없게 되어 22 byte로 늘려 저장함 
+==> 결론, 실제 변수에 저장되는 값의 종류에 따라 Python이 자동으로 타입을 결정하고 변경함 
+     ⇒ 동적으로 타입이 변경되는 언어임 (C 언어와 비교)
+        따라서 실수를 C처럼 float, double, long double 등으로 나눌 필요가 없음!
+
+
+6. 정수(int)
+
+a = 0b11 (이진수 11, 즉 십진수 3) a = 0o11 (8진수 11, 즉 십진수 9), 
+a = 0x11 (16진수 11, 즉 십진수 17) [앞의 0은 숫자, 두 번째 문자는 b(binary), o(octal), x(hexa)를 의미) 
+
+
+11. math 모듈 함수 일부
+
+실수를 올림(ceil), 버림(floor), 반올림(round) 할 수 있음  
+>>> import math
+>>> a = 3.5
+>>> print(math.ceil(a)) 
+4 >>> print(math.floor(a)) 3 
+>>> print(round(a)) # round는 기본 내장 함수로 math 모듈 불필요
+4
+
+---
+
+3 : 연산자와 놀기
+
+4. 산술 연산자(arithmetic operator) 
+
+2+3.0의 결과는? 
+==> 실수 5.0
+
+
+6. 비교 연산자(comparison operator)
+7. 논리 연산자(logical operator)
+8. 비트 연산자(bitwise operator)
+
+==> 간단해서 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
