@@ -1,0 +1,22 @@
+5: 조건문(conditional statement) 
+
+
+4. Python 조건문 
+6. 조건문을 사용하여 2차 방정식의 근 구하기
+
+
+6: 반복문(loop)과 리스트(list) 
+
+
+4. while 반복문 
+
+예6: 양의 정수를 입력받아 출력하시오. (양수가 입력될때까지 while 문 반복) 
+while True:
+  a = int(input())
+  if a > 0: 
+    break   
+print(a) 
+
+5. 리스트(list) 
+ 
+오.. 리스트 공부할 양이 상당하네 내일 해야지
