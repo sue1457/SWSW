@@ -1,0 +1,97 @@
+6: 반복문(loop)과 리스트(list) 
+
+
+5. 리스트(list) 
+
+   a. fruits = ["apples", "oranges", "apricots", "bananas"] 
+      리스트 fruits는 4개의 과일 이름 문자열을 순서를 유지하면서 0번째부터 저장한 자료형으로 정의
+      0번째, 1번째, … 등을 인덱스(index)라 부름 
+   
+   b. change = [1, "monkey", 2, "hippo", 3, "tiger"]   # 서로 다른 타입 가능 
+      plants = ["pinetree", fruits, "bamboo"]          # 리스트 안에 리스트 
+      
+   c. 리스트 원소 접근: index를 통해 
+      i. print(fruits)   # fruits 리스트 전체를 한 줄에 출력 
+      ii. print(fruits[0], fruits[2]) # apples와 apricots을 출력 
+      iii. print(fruits[-1])   # 가장 오른쪽 원소 bananas      
+      iv. print(fruits[-3])  # 오른쪽에서 세 번째 원소 oranges 출력 
+      v. print(plants[1][2])  # [❓] 출력 결과는? ==> u (fruits의 index 2)
+      vi. print(len(fruits)) # len 함수는 fruits의 원소 개수를 알려줌 여기선 4 
+      
+   d. a = []   # 빈 리스트 (원소가 없는 리스트) - result = [] 로 많이 사용
+   
+   e. 중요 연산 몇 가지:
+      현재 fruits = ["apples", "oranges", "apricots", "bananas"]
+      [update] fruits[1] = "pears" ← fruits[1]의 내용이 수정된다 
+      [index] fruits.index("apricots")은 "apricots"이 저장된 리스트 인덱스를 반환한다
+              fruits[2]에 저장되어 있으므로 2가 반환된다
+      [append] fruits.append("mangos") ← 맨 뒤에 "mangos" 가 삽입된다 
+               함수 앞에 list의 이름이 붙는 것 중요
+      [insert] fruits.insert(2, "mangos")    
+               ← "mangos"를 fruits[2]자리에 삽입하고 2번째부터 한 칸씩 오른쪽 이동 
+      [delete] fruits.pop() ← 가장 오른쪽 원소를 지운 후 반환    
+                  # 이 경우엔 bananas가 반환되고 리스트에서 삭제된다 
+               fruits.pop(0) ← 가장 왼쪽 원소를 지운 후 반환  
+                  # 이 역우엔 apples가 반환되고 리스트에서 삭제된다 
+               del fruits[2] ← 2번째 원소삭제. 오른쪽 원소들은 한 칸씩 왼쪽 이동 
+                  # fruits = ["apples", "oranges", "bananas"]
+      [add] 두 리스트를 + 할 수 있다 → 두 리스트를 연결하는 연산 
+            # 그러나 빼기 연산과 나누기 연산 없음! 
+      [repetition] 패턴을 반복하여 리스트 원소를 정하는 연산 (* 연산자 사용) 
+                   a = [1]*3     # a = [1, 1, 1] ← 1이 3번 반복하여 리스트 원소로 등장    
+                   b = [2, 3]*2  # b = [?] 해보기 [❓]  ==> b = [2, 3, 2, 3]  
+                   c = [0] * 100  # c의 값들이 모두 0이 됨 (0으로 모두 초기화하는 데 유용)
+      [membership] in or not in 어떤 값이 리스트에 있는지 없는지 검사하는 연산 
+                   >>> a = [4, 1, 6, 8] 
+                   >>> 1 in a 
+                   True
+                   >>> 2 in a 
+                   False
+                   >>> if 1 in a: 
+                   ...     print("Yes, in") 
+                   ... else: 
+                   ...     print("No, not in") 
+                   ... 
+                   Yes, in 
+                   >>> 2 not in a 
+                   True
+      [유용한 연산 1] 크기에 따라 재배열(정렬)하기 
+                      a = [3, 1, 2 -5]  
+                      a.sort()  
+                      print(a)   # a = [-5, 1, 2, 3] 오름차순으로 정렬됨  
+                      a.sort(reverse = True)  
+                      print(a)   # a = [3, 2, 1, -5] 내림차순으로 정렬됨 
+                      b = sorted(a)  # a의 값의 순서는 변하지 않고, 정렬되어 b로 복사 
+      [유용한 연산 2] 리스트 순서를 반대로 하려면? reverse 함수 
+                      a = [3, 1, 2, -5] 
+                      a.reverse() 
+                      print(a)  # [-5, 2, 1, 3]으로 순서가 뒤집힘 
+      
+   f. slicing 연산: 리스트의 특정 원소들만 지정하여 수정하거나 복사하는 연산      
+      어려운 설명 대신 예시로 바로 알아보자
+      예:  
+         >>> a = [0, 1, 2, 3, 4, 5, 6, 7] 
+         >>> a[2:6] # start = 2, end = 6   
+         [2, 3, 4, 5] 
+         >>> a[1:7:2] # start = 1, end = 7, step = 2 
+         [1, 3, 5] 
+         >>> a[:] # start, end 미지정 → 모든 원소를 의미 
+         [0, 1, 2, 3, 4, 5, 6, 7] 
+         >>> a[::2] # step = 2로 지정 → 짝수 인덱스 원소만 지정 
+         [0, 2, 4, 6] 
+         >>> a[:7] # end만 지정. 이 경우엔 start = 0으로 간주 
+         [0, 1, 2, 3, 4, 5, 6] 
+         >>> a[2:] # start만 지정. end를 가장 마지막 index+1 
+         [2, 3, 4, 5, 6, 7]    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
