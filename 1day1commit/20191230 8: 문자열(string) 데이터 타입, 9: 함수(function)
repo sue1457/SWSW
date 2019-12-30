@@ -1,0 +1,416 @@
+8: 문자열(string) 데이터 타입 
+
+
+  1. C/C++, Java 등과 비교해서 Python의 강점 중 하나는 문자열을 쉽게 다룰 수 있다는 것이다 
+
+  2. 큰 따옴표로 둘러 싸거나 작은 따옴표로 감싸서 표현한다 
+    a. 예: "hello", 'hi', "124", 'P' 모두 문자열이다 
+    b. C언어에서는 작은 따옴표는 하나의 문자 상수, 큰 따옴표는 문자열 상수 정의에 사용 
+ 
+  3. 주요 특징 
+    a. 인덱스로 접근 가능하다 (리스트 인덱싱 연산처럼) 
+      i. 예: 
+         >>> s = "hello" 
+         >>> s[0] 
+         'h' 
+         >>> s[2] 
+         'l' 
+         >>> s[-1] 
+         'o' 
+ 
+    b. 그러나 문자열 수정할 수는 없다 (immutable) 
+      i. 예:
+         >>> s[1] = 'i'  # 'e' --> 'i'로 변경 시도하지만 에러 발생 
+         Traceback (most recent call last):   
+         File "<stdin>", line 1, in <module> 
+         TypeError: 'str' object does not support item assignment   
+ 
+      ii. 그러면 어떻게 수정할까? 
+          >>> s = 'apfle'   # apfle → apple로 변경하려면? 
+          >>> s = 'apple'   # 그냥 원하는 문자열로 교체함 
+          >>> t = s.replace('pf', 'pp')  # 교체 함수를 사용 
+          >>> s 
+          'apfle' 
+          >>> t 
+          'apple'
+          
+    c. slicing 연산은 제공한다 
+       i. 예:  
+          >>> s[:] 
+          'hello' 
+          >>> s[:3] 
+          'hel' 
+          >>> s[2:] 
+          'llo' 
+          >>> s[::2] 
+          'hlo' 
+          >>> s[::-1] # step = -1이면 오른쪽 끝에서 왼쪽으로 가면서 선택 
+          'eciwT olleH' # 결국 문자열을 뒤집는 효과 
+          >>> s[1:4:2] 
+          'el' 
+          >>> t = s[1:4:2] 
+          >>> t 
+          'el' 
+          
+  4. +, * 연산자 
+    a. s + t: 두 문자열을 복사해 이어 붙이는 연산 
+    
+    b. s * 3: s의 문자열을 3번 반복하는 연산 
+    
+    c. 예:  
+       >>> s, t = "Hello", "TWICE" 
+       >>> greeting = s + " " + t + "!" 
+       >>> greeting 
+       'Hello TWICE!' 
+       >>> t*2 
+       'TWICETWICE' 
+ 
+  5. str 데이터 타입을 위해 제공되는 기본 함수들  
+     >>> s = "Hello Twice" 
+     >>> s.count('e') 
+     2 
+     >>> s.find('e') # 주어진 문자가 처음으로 나타나는 인덱스 반환 
+     1 
+     >>> s.index('o') 
+     4 
+     >>> s.find('o T') # 문자열도 찾아준다 (문자열의 시작 인덱스) 
+     4 
+     >>> len(s) 
+     11 
+     >>> "-".join(s) # s의 문자들을 "-"로 연결하는 연산 (사이에 "-" 삽입) 
+     'H-e-l-l-o- -T-w-i-c-e' 
+     >>> s = s.upper() # s의 문자를 모두 대문자로 바꾼 복사본을 반환 후 s를 수정 
+     >>> s  
+     'HELLO TWICE' 
+     >>> s.lower() 
+     'hello twice' 
+     >>> t = "  Hello  " 
+     >>> t.lstrip() # 처음에 나오는 공백을 모두 없앤다(strip) 
+     'Hello  ' 
+     >>> t.rstrip() # 마지막에 나오는 공백을 모두 없앤다 
+     '  Hello' 
+     >>> t.strip()  # 처음과 끝에 나타난 공백들을 모두 없앤다 
+     'Hello' 
+     >>> t = s.replace("Twice", "BLACKPINK") # 특정 문자열을 모두 찾아 대체한다 
+     >>> s   # s는 변경될 수 없으므로 변하지 않는다 
+     'Hello Twice' 
+     >>> t   # 대체된 문자열을 t에 저장했기 때문에 
+     'Hello BLACKPINK' 
+ 
+  6. 문자열을 분할하는 유용한 연산: split 함수 
+    a. s.split(str) 형식: 문자열 s의 내용을 문자열 str 기준으로 분할하고, 
+                          분할된 문자열을 리스트에 담아 반환 
+                          
+    b. 예:
+       >>> line = "Hello Python!\n Hello HUFS" 
+       >>> line.split() # str 없으면 whitespace(\n,\t, space)가 기준 
+       ['Hello', 'Python!', 'Hello', 'HUFS']  # 4개의 짧은 문자열로 분할 후, 리스트로 반환 
+       >>> line.split("el")   # str =  "el"을 기준으로 나눔 
+       ['H', 'lo Python!\n H', 'lo HUFS'] 
+       >>> line.split("\n")  # 줄 바꿈 문자 "\n"을 기준으로 나눔  
+       ['Hello Python!', ' Hello HUFS'] 
+       >>> line.splitlines()  # split("\n")와 같은 효과 
+       ['Hello Python!', ' Hello HUFS'] 
+ 
+    c. str = "  This is an example   " 
+      i. str의 앞 뒤의 space를 모두 없애고 싶다면?     str.strip() 
+      ii. str의모든 space를 없애고 싶다면?             str.replace(" ", "") 
+      iii. str의모든 whitespace를 없애고 싶다면?       "".join(str.split()) 
+
+------------------------------------------------------------------------------------------------
+
+9: 함수(function)
+
+
+  1. python에서 제공하는 화면 출력 함수 print를 보자. 만약, 이 함수가 없다면, 
+     출력 코드를 코드에 직접 필요한 곳에 여러번 삽입해야 한다 
+  
+  2. 화면 출력은 매우 자주 사용해야 하는 것이므로 일종의 부품처럼 만들어 
+     필요할 때마다 가져다(호출해서) 사용하면 편리하다 
+     
+  3. 함수는 자주 사용할 코드 조각을 따로 정의해, 필요할 때마다 호출해 계산 결과를 이용하기 위해 
+     마련된 개념이다. (수학에서의 함수 정의와 큰 차이가 없다)
+     
+  4. 함수 정의: 
+    a. def square(x): # def 함수이름(argument1, … ): ← colon이 필요
+          y = x*x   # 하나 이상의 명렴문       
+          return y   # return 반환값 
+ 
+  5. 함수 호출 
+    a. 함수이름(매개변수1의 값, 매개변수2의 값, …)의 형식으로 호출 
+      i. 함수 이름은 변수 이름 작명 규칙을 그래도 따라 지으면 된다 
+
+    b. 예:  
+       >>> def square(x): 
+       ...       y = x * x 
+       ...       return y 
+       ... 
+       >>> z = square(3) # 3을 매개변수 값으로 square 함수 호출    
+                         # square(3) 자체가 반환값 9를 의미함 
+                         # z = 9가 대입됨 
+       >>> print("3*3 =", z) 
+       3*3 = 9 
+       >>> print(square(5))# square(5)가 반환값 25를 의미함 
+       25
+        
+  6. 함수를 먼저 정의하고, 필요할 때마다 함수를 호출해 사용한다 (정의만 한다고 함수가 실행되는 건 아님) 
+ 
+  7. 매개변수 또는 인수(parameter or argument) 
+    a. 매개변수가 없어도 된다 
+      def say_goodbye( ):    # 매개변수가 없음       
+          print("See you next time!") # 단순한 메시지 출력용 함수
+          
+    b. 매개변수가 갯수를 정하지 않고 호출시 원하는 만큼 전달할 수도 있다 
+      i. 매개변수의 개수를 지정하지 않는 경우엔 매개변수를 *args 처럼 매개변수 
+         이름 앞에 *를 붙인다   
+         >>> def f_many(*args): 
+         ... print(args)  # args는 매개변수를 묶은 튜플 
+         ... print(*args) 
+         ... return args  # args를 튜플로 묶어 반환한다 
+         ... 
+         >>> r = f_many(5, 3.14, "third") 
+         (5, 3.14, 'third') 
+         5 3.14 third  # 함수 실행 결과: print 문 실행 
+         >>> r   # 반환 값 출력: 튜플 형식으로 반환되었음을 확인 
+         (5, 3.14, 'third') 
+         >>> len(r) 
+         3
+         
+    c. 매개변수 default 값 지정: default parameter 
+      i. 함수를 선언할 때, 매개변수의 default 값을 지정할 수 있다 
+      
+      ii. 만약 해당 매개변수 값이 생략되어 호출되면, default 값이 자동 사용된다  
+          예제: def foo(a, b = 15, c = 27):로 정의되었다면 
+            ● foo(1, 2, 3)   # a = 1, b = 2, c = 3 
+            ● foo(1)   # a = 1, b = 15, c = 27 
+            ● foo(1, 2)   # a = 1, b = 2, c = 27  
+ 
+      iii. def foo(a=1, b=2, c=3):인 경우, foo(c = 5)로 호출하면 foo(1, 2, 5)로 호출됨 
+        ● 호출할 때, 직접 매개변수의 이름을 지정하는 방식 (c = 5처럼) 
+        ● 이런 형태의 매개변수를 keyword argument라 함 
+
+  8. 리턴(return)
+    a. 반환할 값이 없다면, 리턴 값이 없어도 되고, return 문 자체가 없어도 된다 
+       def print_sum(a, b):       
+            print(a+b)     
+            return  
+            # return 문만 있는 경우. 리턴 값이 없으므로 return 문 없어도 됨 
+
+    b. return 문이 없다면 None이 리턴된다.  
+        i. None이라는 객체의 데이터 타입으로 no value를 의미한다
+        
+    c. 리턴 값이 두 개 또는 그 이상일 수도 있다 
+        def divmod(a, b):  # a//b 와 a%b 두 개의 값을 리턴       
+            return a//b, a%b  # 두 리턴 값이 튜플로 묶여 리턴됨 
+ 
+        c = divmod(3, 2)  # (1,1) tuple 형태로 리턴됨 → 즉, c는 튜플 (1,1) print(c) 
+
+  9. 변경불가 타입(immutable)과 변경가능 타입(mutable) 
+    a. int, float, string, tuple은 내용을 변경할 수 없는 타입 
+    
+    b. list, dict, set은 내용을 변경할 수 있는 타입
+    
+    c. 여기서 변경 불가(immutable)와 변경 가능(mutable)이라함은  
+      i. 정수상수, 실수상수, 문자열 자체가 변경할 수 없다는 의미이면서 
+      
+      ii. 외부변수를 통해 자신의 값이 바뀌지는 않는다는 의미
+      
+      예 1: 변경불가 타입: string 
+      >>> s = "Hello" 
+      >>> s[1] = 'x' 
+      Traceback (most recent call last):   
+      File "<stdin>", line 1, in <module> 
+      TypeError: 'str' object does not support item assignment 
+ 
+      예 2: 변경불가 타입 int, tuple 
+      >>> 1 = 3  # 1은 상수이므로 변경불가 
+      File "<stdin>", line 1 
+      SyntaxError: can't assign to literal 
+      >>> t = (1, 2)  # t는 tuple임 
+      >>> t 
+      (1, 2) 
+      >>> t[1] = 100  # t의 원소 값을 바꿀 수 없음 
+      Traceback (most recent call last):   
+      File "<stdin>", line 1, in <module> 
+      TypeError: 'tuple' object does not support item assignment 
+ 
+      예 3: 변경불가 타입 int   
+      >>> a = 1 
+      >>> b = a  # a와 b 모두 동일한 1을 가르킴 
+      >>> b = b + 10 # b에 10을 더한다고 해서 a의 1이 바뀌는 건 아님! 
+      >>> a   # a의 값은 a만 바꿀 수 있음 
+      1 
+      >>> b 
+      11 
+ 
+      예 4: 변경가능 타입 list 
+      >>> list1 = [1, 2, 3] 
+      >>> list2 = list1 
+      >>> list2[1] = 10 # mutable이므로 list2를 통해 list1 값 변경 가능 
+      >>> list1 
+      [1, 10, 3] 
+      >>> list2 
+      [1, 10, 3]    
+ 
+    d. 함수에서 변경불가 타입과 변경가능 타입의 효과 
+      예 1: 
+      def func(val):  
+          val += 'bar'  
+ 
+      x = 'foo' 
+      print(x)  # foo 출력 
+      func(x)   
+      print(x)  # foo 출력 (x가 변하지 않음) 
+ 
+      예 2: 
+      def func(value):  
+          value += [3, 2, 1]  
+ 
+      x = [1, 2, 3]  
+      print(x)  # [1, 2, 3]  
+      func(x)  # val과 x는 동일한 리스트를 가리킴. val이 바뀌면 x도 변경됨 
+      print(x)  # [1, 2, 3, 3, 2, 1] 
+ 
+      예 3: 
+      def func(value):  
+          value[1] = 100  
+ 
+      x = [1, 2, 3]  
+      print(x)  # [1, 2, 3]  
+      func(x)  # val과 x는 동일한 리스트를 가리킴. val이 바뀌면 x도 변경됨 
+      print(x)  # [1, 100, 3] 
+
+  10. 전역(global)변수와 지역(local) 변수 
+    a. 지역변수는 함수 안에서 정의(수정)된 변수로 함수안에서만 존재하는 변수 
+    
+    b. 전역변수는 함수 외부에서 정의된 변수로 함수 내에서 수정할 수도 있다 
+      예 1: 
+      >>> def f(): 
+      ...     b = a * 2 # b는 f에서 사용된 (대입 연산이 적용된) 지역변수 
+      ...     print(a, b) # 반면 a는 소속이 없음 → 함수 외부에 선언된 전역변수 
+      ... 
+      >>> a = 10 
+      >>> f() 
+      10 20 
+      >>> print(a, b) # b는 오로지 f 함수에만 존재하는 지역변수라서 에러 
+      Traceback (most recent call last):   
+      File "<stdin>", line 1, in <module> 
+      NameError: name 'b' is not defined 
+ 
+      예 2: 
+      >>> def f(): 
+      ...     a = 20 # a가 함수 안에서 실제로 사용되었으므로 지역변수임 
+      ...     print(a)  
+      ... 
+      >>> a = 10  # a는 함수 f 외부에서 선언된 (f 입장에선) 전역변수 
+      >>> print(a)  # 전역 a 
+      10 
+      >>> f() 
+      20 
+      >>> print(a)  # 전역 a는 f에 의해 바뀌지 않았기에 원래 값 10 출력 
+      10 
+
+      예 3: 
+      >>> def f( ):
+      … global  a  # global a로 선언하면 외부 전역변수 a를 그대로 사용  
+      … a = 20    # global로 선언했으므로 전역 a임  
+      … print(a)    
+      >>> a = 10 
+      >>> print(a)  # 함수 호출전 
+      10 
+      >>> f()   
+      20 
+      >>> print(a)  # 함수 f에 의해 20으로 수정됨 
+      20 
+
+      예4:  
+      >>> a = 1 
+      >>> def f(): 
+      ...     a = a + 1 
+      ...     print(a) 
+      >>> print(a)  # 전역변수 a가 f 전에 선언되어 있어도 상관없음 
+      1 
+       
+      예 5: 
+      >>> a = 1 
+      >>> def f(a):  # 함수의 매개변수는 무조건 지역변수 
+                     # 전역변수 a와 이름이 같을 뿐 (동명이인으로 간주) 
+      ...     a = a + 1 # 지역변수 a만 1 증가 
+      ...     print(a) 
+      ... 
+      >>> f(a)  # 전역변수 a의 값 1이 매개변수 a로 복사되어 전달됨 
+      2 
+      >>> print(a)  # 전역변수 a는 변화없음 
+      1 
+ 
+    c. 전역/지역변수 규칙 정리 
+      i. 함수 내 변수가 global로 선언되면 무조건 전역변수 
+      
+      ii. global 선언이 없을 때, 수정되면(즉, 대입연산의 왼쪽에 등장하여 값이 저장되면) 
+          함수의 지역변수, 수정되지 않으면 전역변수 
+      
+      iii. 함수의 매개변수는 지역변수 
+ 
+  11. 한줄 함수 lambda와 연관 함수 세 가지 map, filter, reduce 
+    a. lambda arguments: statement 로 정의된다. (여기서 lambda는keyword)
+    
+    b. 비교: 일반함수와 lambda 함수 
+      i. 두 수의 합을 구하는 일반 함수 
+         add def add(a, b):   
+                return a+b  
+         print(add(2, 3))
+         
+      ii. lambda 함수 add
+          add = lambda a, b: a+b   # a, b → 매개변수, a+b → 명령문장, add → 람다 함수이름  
+          print(add(2, 3)) # 람다 함수 add를 일반 함수처럼 호출
+         
+ 
+  12. 함수도 객체다! 
+    a. 예 1: 함수를 객체처럼 복사할 수 있다 
+       def hi(name="python"):     
+          return "hi " + name 
+ 
+       greet = hi  # greet이 hi와 같은 함수가 됨 
+       print(greet())  # output: 'hi pythin'
+       del hi  # 심지어 hi 자체를 지울 수 있음 
+       print(hi())  # output: NameError
+       print(greet()) # output: 'hi pythin'
+ 
+    b. 예 2: 함수 안에 함수를 선언할 수 있다 (호출되면 내부의 함수도 수행됨)  
+       def hi(name="python"): 
+          print("now inside the hi() function")       
+          
+          def greet(): # 함수 hi 안에서 greet 함수를 선언 가능 
+              return "now in the greet() function" 
+          print(greet())      
+          print("now back in the hi() function") 
+ 
+      hi()           # output:now inside the hi() function 
+                     #        now in the greet() function 
+                     #        now back in the hi() function   
+      greet()   # output: NameError: name 'greet' is not defined 
+ 
+    c. 예 3: 함수 자체를 리턴할 수도 있다  
+      def hi(name="python"): 
+          print("now inside the hi() function")       
+          
+          def greet(): # 함수 hi 안에서 greet 함수를 선언 가능 
+              return "now in the greet() function" 
+          if name == "python": 
+              return greet 
+          print("now back in the hi() function") 
+ 
+      a = hi()    # output:now inside the hi() function  
+                  # hi 함수가 greet 함수를 리턴하므로 a = greet이 됨   
+      a()  #        now in the greet() function (greet이 호출됨) 
+ 
+    d. 예 4: 함수를 다른 함수의 매개변수로 전달할 수 있다  
+       def hi():     
+          return "hi Python!" 
+       def doSomethingBeforeHi(func):
+          print("before calling hi()")
+          print(func())
+          
+       doSomethingBeforeHi(hi)  # hi를 doSomethingBeforeHi의 매개변수로 전달     
+                                # output:before calling hi()     
+                                #   hi Python 
