@@ -1,0 +1,159 @@
+10: 모듈(module)과 패키지(package)
+
+ 
+  1. 코드는 여러 변수, 상수, 함수들의 조합으로 구성된다.  
+  
+  2. 모든 변수, 상수, 함수를 하나의 .py 파일에 포함할 필요가 없이 기능 단위(모듈: module)로 
+     분할하여 작성하고, 필요할 때마다 현재 코드에 포함시켜 사용하면 여러 면에서 효율적이다  
+      a. 코드의 크기가 줄고, 재사용성이 높아지며, 읽고 이해하기 쉬워지고, 
+         코드의 유지 관리의 부담이 줄어든다 
+
+  3. 모듈은 독립된 파이썬 코드이다. 하나의 모듈에는 여러 개의 함수, 변수, 상수 등이 포함 
+    a. sin, cos, sqrt 등의 수함 함수를 포함한 math라는 모듈을 사용하고 싶다면: 
+    
+    b. import math   # C의 #include <math.h>와 유사한 의미 
+       print(math.sqrt(4.0)) # math.sqrt()는 math모듈의 sqrt 함수 호출  
+       print(math.pi)  # math에 정의된 원주율 pi 값 상수 
+
+    c. from math import sqrt # math의 sqrt만 콕 집어서 import 함  
+       print(sqrt(4.0), math.pi) # sqrt를 직접 import했으니 math 소속을 안붙임 
+       
+    d. from math import *  # math의 모든 내용(*)을 import 함  
+       print(sqrt(4.0), pi)
+       
+    e. import math as m  # math 이름이 길면 as 짧은 이름으로 import가능  
+       print(m.sqrt(4.0), m.pi) 
+
+  4. 모듈 분류 
+    a. 파이썬 기본 장착 모듈 (또는 Python Standard Library) 
+    
+    b. 사용자(프로그래머)가 작성한 모듈 
+    
+    c. 외부(third party)에서 작성한 모듈 
+
+  5. 파이썬 기본 장착 모듈 
+    a. 파이썬에서 기본으로 제공하는 모듈 
+    
+    b. 어떤 모듈이 있나?  
+       >>> import sys   
+       >>> sys.builtin_module_names  # 파이썬에서 제공하는 모듈 이름들 
+       ('_ast', '_bisect', '_blake2', '_codecs', '_codecs_cn', '_codecs_hk', 
+       '_codecs_iso2022', '_codecs_jp', '_codecs_kr', '_codecs_tw', '_collections', 
+       '_csv', '_datetime', _functools', '_heapq', '_imp', '_io', '_json', '_locale', 
+       '_lsprof', '_md5', '_multibytecodec', '_opcode', _operator', '_pickle', '_random', 
+       '_sha1', '_sha256', '_sha3', '_sha512', '_signal', '_sre', '_stat', '_string', 
+       '_struct', '_symtable', '_thread', '_tracemalloc', '_warnings', '_weakref', 
+       '_winapi', 'array', 'atexit', 'audioop', 'binascii', 'builtins', 'cmath', 
+       'errno', 'faulthandler', 'gc', 'itertools', 'marshal', 'math', 'mmap', 'msvcrt', 
+       'nt', 'parser', 'sys', 'time', 'winreg', 'xxsubtype', 'zipimport', 'zlib') 
+       >>> 
+       >>> import math 
+       >>> dir(math)  # dir(math)는 math 모듈의 내용-상수와 함수이름 반환 
+       ['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos', 'acosh', 
+       'asin', 'asinh', 'atan', 'atan2', 'atanh', 'ceil', 'copysign', 'cos', 'cosh', 
+       'degrees', 'e', 'erf', 'erfc', 'exp', 'expm1', 'fabs', 'factorial', 'floor', 
+       'fmod', 'frexp', 'fsum', 'gamma', 'gcd', 'hypot', 'inf', 'isclose', 'isfinite', 
+       'isinf', 'isnan', 'ldexp', 'lgamma', 'log', 'log10', 'log1p', 'log2', 'modf', 
+       'nan', 'pi', 'pow', 'radians', 'sin', 'sinh', 'sqrt', 'tan', 'tanh', 'tau', 'trunc'] 
+
+    c. 예 1: os 모듈과 os.path 모듈 (os 모듈의 하위 서브 모듈) 
+      ■ os 관련 명령을 함수로 제공 (매우 유용) 
+        1. 주의: 문자열에서 \ 은 \\ 로 표기해야함. 
+        
+        2. os.getcwd(): 현재 디렉토리를 문자열로 리턴 
+        
+        3. os.path.getsize(path):  path로 지정한 디렉토리에 있는 파일과 
+           디렉토리의 디스크 크기(byte 수)를 리턴 
+        
+        4. os.path.isdir(path), os.path.isfile(path): path로 지정한 것이 
+           디렉토리, 파일이면 True, 아니면 False 
+           
+        5. os.listdir(path): path로 지정한 디렉토리에 들어 있는 각 파일과 
+           디렉토리의 문자열 리스트로 만들어 리턴 
+           
+        6. os.path.join(path, name): path\name 형태로 연결한 문자열을 리턴: 
+           os.path.join('C:\\Python36', 'python.exe')은 'C:\\Python36\\python.exe'를 리턴함
+           
+        >>> import os 
+        >>> os.getcwd()  # 현재 디렉토리를 문자열로 반환 
+        'C:\\Users\\user\\Dropbox\\Courses\\파이썬프로그래밍\\ codes' 
+        >>> os.system("dir") # dir 명령을 실행한 결과를 반환 
+        C:\Users\user\Dropbox\Courses\파이썬프로그래밍\codes 디렉터리 
+        2018-01-18  오전 11:40    <DIR>          . 
+        2018-01-18  오전 11:40    <DIR>          .. 
+        2018-01-09  오후 09:22               671 codes.zip 
+        2017-12-07  오전 12:36               454 csv_json.py 
+        2018-01-15  오후 10:09               182 error.py  
+        2017-12-06  오후 11:37               191 example.csv 
+        2018-01-12  오후 05:30           114,254 sample_photo.jpeg 
+        2018-01-12  오후 06:59               141 show_jpg.py 
+        2018-01-09  오후 05:55               119 test.txt
+                14개 파일             503,619 바이트
+                5개 디렉터리  65,551,085,568 바이트 남음 
+        >>> os.chdir("..")  # change directory 명령 
+        >>> os.getcwd()  
+        'C:\\Users\\user\\Dropbox\\Courses\\파이썬프로그래밍' 
+ 
+    d. 예 2: time 모듈 
+      ■ 시간과 관련된 유용한 함수를 제공  
+        >>> import time 
+        >>> time.ctime()  # 현재 시간 반환 
+        'Thu Jan 18 11:49:26 2018' 
+        >>> before = time.clock() # process 시간을 초단위로 반환 
+        1.4506654287655008e-05 # 코드 수행시간을 측정하는 데 사용 
+  
+    e. 예 3: webbrowser 모듈 
+      ■ 웹 브라우저로 원하는 사이트를 열수 있음  
+        >>> import webbrowser 
+        >>> webbrowser.open("http://google.com") 
+        True 
+
+  6. 사용자가 작성한 모듈 
+    a. 사용자가 작성한 코드를 다른 코드에 모듈로 import할 수 있다 
+    
+    b. 예:  
+      ■ 다음 코드를 "my_module.py" 파일에 작성한다 
+        my_e = 2.71828  
+        def square(x):    
+          return x*x 
+
+      ■ 다음 코드를 작성해보자 
+        >>> import my_module # .py빼고 파일이름만 import 
+        >>> print(my_module.my_e, my_module.square(2.0))  
+        2.71828 4.0  
+ 
+  7. 외부 모듈 (또는 패키지) 
+    a. 매우 다양하고 광범위한 모듈이 개발되어 있고, 계속 추가 중임 
+    
+    b. 모듈 검색: https://wiki.python.org/moin/UsefulModules 
+
+    c. 예 1: Image 모듈(이미지 처리 관련 함수 제공)을 설치 후 활용 
+      ■ 설치명령(Powershell에서): pip install Image (PowerShell에서 코드가 있는 디렉토리에서 명령실행) 
+      
+      ■ 같은 디렉토리에 sample.jpg (이미지 파일) 아무거나 복사함  
+        >>> from PIL import Image, ImageFilter 
+                # PIL 패키지에서 Image과 ImageFilter 모듈 import    
+                # PIL = Python Image Library  
+        >>> img = Image.open("sample.jpg")  
+        >>> blu = img.filter(ImageFilter.BLUR)  
+        >>> img.show()  
+        >>> blu.show() 
+ 
+    d. 예 2: tkinter 모듈 
+      ■ 실제 파이썬 내장 패키지로 설치할 필요 없음. 다음 코드를 실행해보자  
+        >>> import tkinter as tk 
+        >>> root = tk.Tk() 
+        >>> w = tk.Label(root, text="Hello 안녕, Tkinter!") 
+        >>> w.pack() 
+        >>> root.mainloop() 
+
+    e. 예 3: matplotlib: 점, 직선, 곡선, 도표, 그래프 등을 그릴 수 있도록 도와주는 모듈 
+
+  8. 모듈이 현재 실행되는 "main" 모듈인지 아니면 import된 모듈인지 구별할 필요가 있는 경우에, 
+     실제 수행되는 모듈이면, __name__ == "__main__"으로 지정된다는 사실로 메인 모듈을 다음과 같이 
+     구분할 수 있다 (C의 main 함수처럼) 
+          # file: test.py 
+          def test():  
+              print ("main module test") 
+          if __name__ == "__main__"  
+              test()  # test.py가 수행되는 최상위 모듈인 경우에만 호출된다 
