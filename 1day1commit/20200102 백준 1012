@@ -1,0 +1,37 @@
+1012. 유기농 배추
+
+    import sys
+
+    T = int(sys.stdin.readlines())
+    results = []
+
+    for _ in range(T):
+      M, N, K = map(int, sys.stdin.readlines().split())
+      coords = []
+      for _ in range(K):
+        x, y = map(int, sys.stdin.readlines().split())
+        coords.append([x, y])
+
+      groups = {}                         #groups 딕셔너리는 디버깅 용도이자 각 그룹마다 포함된    
+      goup_num = 0                         좌표들을 정리해두는 용도
+      while coords:
+        group_num += 1
+        current_coord = coords.pop(0)
+        groups[group_num] = [current_coord]
+        neighbors = [current_coord]
+        while neighbors:
+          tmep = []
+          for neighbor in neighbors:
+            x = neighbor[0]
+            y = neighbor[1]
+            neighbor_candidates = [[x+1, y], [x, y+1], [x-1, y], [x, y-1]]
+            for neighbor_candidate in neighbor_candidates:
+              if neighbor_candidate in coords:
+                coords.remove(neighbor_candidate)
+                temp.append(neighbor_candidate)
+          neighbors = temp
+          gorups[group_num] += neighbors
+      results.append(group_num)
+
+    for result in result:
+      sys.stdout.write(str(result)+'\n')
