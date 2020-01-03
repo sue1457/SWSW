@@ -1,0 +1,32 @@
+10718. We love kriii
+  print("강한친구 대한육군\n강한친구 대한육군")
+  
+10998. A*B
+  a, b = input().split()
+  a = int(a)
+  b = int(b)
+  print(a*b)
+  
+10869. 사칙연산
+  a, b = input().split()
+  a = int(a)
+  b = int(b)
+  print(a+b, a-b, a*b, int(a/b), a%b, sep = '\n')
+  
+10430. 나머지
+  a, b, c = input().split()
+  a = int(a)
+  b = int(b)
+  c = int(c)
+  print((a + b) % c)
+  print(((a % c) + (b % c)) % c)
+  print((a * b) % c)
+  print(((a % c) * (b % c)) % c)
+  
+2588. 곱셈
+  a = int(input())
+  b = input()
+  list(b)
+  for i in range(2, -1, -1):
+    print(a * int(b[i]))
+  print(a * int(b))
