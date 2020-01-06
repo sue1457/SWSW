@@ -1,0 +1,77 @@
+<1차원 배열>
+
+10818. 최소, 최대
+  n = int(input())
+  n_list = list(map(int, input().split()))
+  print(min(n_list), max(n_list))     #print('{} {}'.format(min(n_list), max(n_list)))
+  
+2562. 최댓값
+  result = []
+  for i in range(9):
+    result.append(int(input()))
+
+  print(max(result))
+  print(result.index(max(result)) + 1)
+  
+2920. 음계
+  a = list(map(int, input().split()))
+  if a == sorted(a):
+    print('ascending')
+  elif a == sorted(a, reverse = True):
+    print('descending')
+  else:
+    print('mixed')
+    
+2577. 숫자의 개수
+  a = int(input())
+  b = int(input())
+  c = int(input())
+  result = list(str(a * b * c))
+  for i in range(10):
+    num_count = result.count(str(i))
+    print(num_count)
+    
+3052. 나머지
+  result = []
+  for i in range(10):
+    n = int(input())
+    result.append(n % 42)
+  set_result = set(result)
+  print(len(set_result))
+
+1546. 평균
+  n = int(input()) 
+  score = list(map(int, input().split()))
+  sum = 0
+  m = max(score)
+  for i in range(n):
+    score[i] = score[i]/m*100
+    sum += score[i]
+  print('%.2f'%(sum/n))
+  
+8958. OX퀴즈
+  n = int(input())
+  for i in range(n):
+    result = list(input())
+    sum = 0
+    a = 1
+    for i in result:
+      if i == 'O':
+        sum += a
+        a += 1
+      else:
+        a = 1
+    print(sum)
+    
+4344. 평균은 넘겠지  ======> 어려움 =====> 복습하기 ★★★★★
+  result = []
+  for i in range(int(input())):
+    a = list(map(int, input().split()))
+    mean = sum(a[1:]) / a[0]
+    upper_list = []
+    for n in a[1:]:
+      if n > mean:
+        upper_list.append(n)
+    result.append('%0.3f'%round(len(upper_list)/a[0]*100, 3))
+  for n in result:
+    print('%s%%'%n)
