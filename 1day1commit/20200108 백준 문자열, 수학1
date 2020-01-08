@@ -1,0 +1,123 @@
+<문자열>
+
+2941. 크로아티아 알파벳
+* 내가 짰는데 안되는 코드 *
+  cro_alphabet = ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj', 's=', 'z=']
+  a = list(input())
+  result = []
+  for i in a:
+    result.append(i)
+    join = ''.join(result)
+    b = 0
+    if join in cro_alphabet:
+      b += 1
+      del result[:]
+  print(b)
+  
+* 정답 코드 *
+  cro_alphabet = ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj', 's=', 'z=']
+  a = input()
+  for key in cro_alphabet:
+    a = a.replace(key, 'a')
+  print(len(a))
+  
+1316. 그룹 단어 체커
+* 내가 짰는데 안되는 코드 *
+  result = []
+  a = 0
+  for i in range(int(input())):
+    word = sorted(list(input()))
+    for j in word:
+      result.append(j)
+      if j not in result:
+        a += 1
+  print(a)
+  
+* 런타임 오류 *
+  result = int(input())
+  for i in range(result):
+    word = input()
+    for j in range(1, len(word)):
+      if word.find(word[i-1]) > word.find(word[i]):
+        result -= 1
+        break
+  print(result)
+  
+* 정답 코드 *
+  result = 0
+  for i in range(int(input())):
+    word = input()
+    if list(word) == sorted(word, key = word.find):
+      result += 1
+  print(result)
+  
+  --------------------------------------------------------
+  
+<수학1>
+  
+1712. 손익 분기점
+  a, b, c = list(map(int, input().split()))
+  berak_even_point = 0
+  if c <= b:
+    break_even_point = -1
+  else:
+    break_even_point = a // (c - b) + 1
+  print(break_even_point)
+
+2839. 설탕 배달
+* 왜 틀린건지 모르겠다 *
+  n = int(input())
+  five = 0
+  three = 0   #초기화
+  five = n//5
+  b = n%5   #5kg의 개수와 나머지
+  
+  #나머지가 0이 아니면 3kg의 개수를 구해야 함
+  if b != 0:
+    while five >= 0:
+      if b % 3 == 0:
+        three == b // 3
+        break
+      five -= 1
+      b += 5
+  sum = five + three
+  if sum < 1:
+    sum = -1
+  print(sum)
+
+* 정답 *
+  n = int(input())
+  five = n//5
+  n %= 5
+  three = 0
+  while five >= 0:
+    if n % 3 == 0:
+      three = n // 3
+      n %= 3
+      break
+    five -= 1
+    n += 5
+  sum = five + three
+  if sum < 1:
+    sum = -1
+  print(sum)
+  
+2292. 벌집
+  n = int(input())
+  first = 1
+  plus = 6
+  room = 1
+  if n == 1:
+    print(1)
+  else:
+    while True:
+      first = first + plus
+      room += 1
+      if n <= first:
+        print(room)
+        break
+      plus += 6
+      
+1193. 분수 찾기
+모르겠다.. 큰일 났다
+내일 다시 보자
