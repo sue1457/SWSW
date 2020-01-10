@@ -1,0 +1,200 @@
+<수학 2>
+
+1978. 소수 찾기
+  case = int(input())
+  num = list(map(int, input().split()))
+
+  result = 0
+
+  for i in num:
+    count = 0
+    if(i == 1):
+      continue
+    for j in range(2, i+1):
+      if(i % j == 0):
+        count += 1
+    if(count == 1):
+      result += 1
+
+  print(result)
+  
+2581. 소수
+  m = int(input())
+  n = int(input())
+  result = []
+  for i in range(m, n+1):
+    count = 0                                # count = 0
+    for j in range(1, i+1):                    if i == 1:
+      if i % j == 0:                            continue
+        count += 1                             for j in range(2, i+1):
+        if count > 2:                          ==> 왜 안되는걸까?
+          break
+    if count == 2:                            
+      result.append(i)
+  if len(result) != 0:
+    print(sum(result))
+    print(min(result))
+  else:
+    print('-1')
+    
+1929. 소수 구하기
+  * 시간 초과 *
+  m, n = map(int, input().split())
+  result = []
+  for i in range(m, n+1):
+    count = 0
+    for j in range(1, i+1):
+      if i % j == 0:
+        count += 1
+        if count > 2:
+          break
+    if count == 2:
+      result.append(i)    
+  for a in result:
+    print(a)
+    
+  * 정답 *
+  import math
+
+  def decimal(num):
+    if num == 1:
+      return False
+    for i in range(2, int(math.sqrt(num))+1):
+      if num / i == 1:
+        break
+      elif num % i == 0:
+        return False
+    return True
+  m, n = map(int, input().split())
+  for k in range(m, n+1):
+    if decimal(k) == True:
+      print(k)  
+      
+4948. 베르트랑 공준
+  * 시간 초과 * ==> N부터 2N까지 모든 수를 비교하니 시간초과 발생 -> 처음부터 모든 소수를 구해서
+  import sys        N부터 2N까지 모든 소수만 비교를 하도록 하면 시간초과 해결
+  import math
+
+  def decimal(num):
+    if num == 1:
+      return False
+    for i in range(2, int(math.sqrt(num))+1):
+      if num / i == 1:
+        break
+      elif num % i == 0:
+        return False
+    return True
+
+  num = int(sys.stdin.readline())
+  while num != 0:
+    count = 0
+    for i in range(num + 1, (num*2) +1):
+      if decimal(i) == True:
+        count += 1
+    print(count)
+    
+  * 정답 * ==> sys.stdin.readline()대신 input()사용해도 정답.
+  import sys
+  import math
+
+  def decimal(num):
+    if num == 1:
+      return False
+    for i in range(2, int(math.sqrt(num))+1):
+      if num / i == 1:
+        break
+      elif num % i == 0:
+        return False
+    return True
+
+  natural_list = list(range(2, 246912))
+  decimal_list = []
+  for i in natural_list:
+    if decimal(i) == True:
+      decimal_list.append(i)
+
+  num = int(sys.stdin.readline())
+  while num != 0:
+    count = 0
+    for i in decimal_list:
+      if num < i <= num * 2:
+        count += 1
+    print(count)
+    num = int(sys.stdin.readline())
+  num = int(sys.stdin.readline())
+
+9020. 골드바흐의 추측
+  import math, sys
+
+  def decimal(num):
+    if num == 1:
+      return False
+    for i in range(2, int(math.sqrt(num) + 1)):
+      if num / i == 1:
+        break
+      elif num % i == 0:
+        return False
+    return True
+
+  natural_list = list(range(2, 10001))
+  decimal_list = []
+  for i in natural_list:
+    if decimal(i) == True:
+      decimal_list.append(i)
+
+  for i in range(int(sys.stdin.readline())):
+    even_num = int(sys.stdin.readline())
+    mid_num = even_num // 2
+    down_count = mid_num
+    up_count = mid_num
+    while down_count > 0:
+      if down_count in decimal_list and up_count in decimal_list:
+        if even_num == down_count + up_count:
+          print(down_count, up_count)
+          break
+      down_count -= 1
+      up_count += 1
+      
+1085. 직사각형에서 탈출
+  x, y, w, h = map(int, input().split())
+  distance = [x, y, w - x, h - y]
+  print(min(distance))
+  
+3009. 네 번쨰 점
+  x_ = []
+  y_ = []
+  for i in range(3):
+    x, y = map(int, input().split())
+    x_.append(x)
+    y_.append(y)
+  for i in range(3):
+    if x_.count(x_[i]) == 1:
+      x = x_[i]
+    if y_.count(y_[i]) == 1:
+      y = y_[i]
+  print(x, y)
+  
+4153. 직각삼각형
+  * 틀린 코드 * ==> 왜 틀렸는지 모르겠다
+  import math
+  while True:
+    a, b, c = map(int, input().split())
+    formula = c - math.sqrt(math.pow(a, 2) + math.pow(b, 2))
+    if a == 0 and b == 0 and c == 0:
+      break
+    if formula == 0:
+      print('right')
+    else:
+      print('wrong')
+
+  * 정답 *
+  while True:
+    a, b, c = map(int, input().split())
+    if a**2 == b**2 + c**2 or b**2 == a**2 + c**2 or c**2 == a**2 + b**2:
+      if a == b == c == 0:
+        break
+      else:
+        print('right')
+        pass
+    else:
+      print('wrong')
