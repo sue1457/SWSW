@@ -1,0 +1,52 @@
+< 정렬 >
+
+1181. 단어 정렬
+  n = int(input())
+  words = []
+  for _ in range(n):
+    word = input()
+    words.append(word)
+
+  set_words = list(set(words))
+
+  sort_words = []
+
+  for j in set_words:
+    sort_words.append((len(j), j))
+
+  sort_words.sort()
+
+  for key, value in sort_words:
+    print(value)
+    
+10814. 나이순 정렬
+  n = int(input())
+  information = []
+  for _ in range(n):
+    age, name = input().split()
+    information.append((age, name))
+
+  information.sort(key = lambda x : int(x[0]))
+
+  for i in range(n):
+    print(information[i][0], information[i][1])
+
+* sys를 사용한 코드 * ==> 실행 시간이 10배 빠름
+  import sys
+
+  n = int(sys.stdin.readline())
+  information = []
+  for _ in range(n): 
+    information.append(list(sys.stdin.readline().split()))
+
+  information.sort(key = lambda x : int(x[0]))
+
+  for i in range(n):
+    print(information[i][0], information[i][1])
+    
+--------------------------------------------------------------
+
+< 백트래킹 >
+
+15649. N과 M -1
+ 
