@@ -32,4 +32,41 @@ def dfs(graph, start_node):
  
       return visit
 
-** DFS의 예시 문제 -  **
+** DFS의 예시 문제 - 14888. 연산자 끼워넣기 **
+def dfs(index, result, add, sub, mul, div):
+    global n, maxn, minn
+    if index == n:
+        maxn = max(result, maxn)
+        minn = min(result, minn)
+        return
+    else:
+        if add:
+            dfs(index +1, result + s[index], add-1,sub,mul,div)
+        if sub:
+            dfs(index +1, result - s[index], add,sub-1,mul,div)
+        if mul:
+            dfs(index +1, result * s[index], add,sub,mul-1,div)
+        if div:
+            dfs(index +1, int(result / s[index]), add,sub,mul,div-1)
+n = int(input())
+s = list(map(int, input().split()))
+a, b, c, d = map(int, input().split())
+
+maxn = -1e9
+minn = 1e9
+dfs(1, s[0],a, b, c, d)
+print(maxn)
+print(minn)
+
+
+
+* 되추적(Backtracking) * - dfs 사용
+참교자료 [https://idea-sketch.tistory.com/29]
+
+dfs와 차이점은 백트래킹은 유망하지 않은 자식은 스택에 넣지 않고, 유망한 자식만 스택에 넣는다.
+(#유망하다 == 해답이 될 가능성이 있다.)
+
+백트래킹은 해답을 찾는 과정에서 유망한지 즉, 해답이 될 가능성이 있는지를 확인한 후 유망하지 않다면 
+더이상 진행하지 않고 부모노드로 돌아오는 방식을 취한다.
+
+==> dfs보다 효율이 매우 증가한다.
