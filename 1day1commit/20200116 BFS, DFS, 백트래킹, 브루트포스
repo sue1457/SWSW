@@ -59,7 +59,7 @@ print(minn)
 
 
 
-* 되추적(Backtracking) * - DFS
+< 되추적(Backtracking) > - DFS
 참교자료 [https://idea-sketch.tistory.com/29]
 
 dfs와 차이점은 백트래킹은 유망하지 않은 자식은 스택에 넣지 않고, 유망한 자식만 스택에 넣는다.
@@ -72,7 +72,7 @@ dfs와 차이점은 백트래킹은 유망하지 않은 자식은 스택에 넣�
 
 
 
-* 브루트 포스 (Brute Force == 노가다) * - DFS
+< 브루트 포스 (Brute Force == 노가다) > - DFS
 참고 자료 [https://steemit.com/kr-dev/@gyeryak/easyalgo-2-bruteforce]
 
 브루트 포스는 꼭 '깊이'나 '탐색'의 개념이 아니더라도, 어떤 종류의 문제에서 어떤 방법을 쓰더라도
