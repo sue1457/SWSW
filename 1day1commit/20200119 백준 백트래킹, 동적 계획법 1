@@ -1,0 +1,98 @@
+< 백트래킹 >
+
+14889. 스타트와 링크
+
+* 런타임 에러 *
+  import sys, itertools
+
+  n = 0
+  arr = []
+
+  def team(member):
+      allMember = [i for i in range(n)]
+      start_team = []
+      link_team = []
+
+      for i in allMember:
+          if i in member:
+              start_team.append(i)
+          else:
+              link_team.append(i)
+
+      start_sum = 0
+      for i in start_team:
+          for j in strat_team:
+              start_sum += arr[i][j]
+
+      link_sum = 0
+      for i in link_team:
+          for j in link_team:
+              link_sum += arr[i][j]
+
+      return abs(start_sum - link_sum)
+
+  def solve(members):
+      combination_members = itertools.combinations(members, int(n/2))
+      selected_members = list(combination_members)
+      length = int(len(selected_members)/2)
+
+      minVal = sys.maxsize
+      for member in selected_members[:length]:
+          minus = team(member)
+
+          if minVal > minus:
+              minVal = minus
+
+      print(minVal)
+
+
+  if __name__ == '__main__':
+      n = int(sys.stdin.readline())
+      members = [i for i in range(n)]
+
+      for i in range(n):
+          arr.append(list(map(int, sys.stdin.readline().split())))
+
+      solve(members)
+      
+< 동적 계획법 1 >
+
+2748. 피보나치 수 2
+  n = int(input())
+  arr = [0 for _ in range(n + 1)]
+  arr[1] = 1
+
+  for i in range(2, n + 1):
+      arr[i] = arr[i - 1] + arr[i - 2]
+
+  print(arr[-1])
+  
+1003. 피보나치 함수
+  def count_fibonacci(n):
+      zero_count = [1, 0]
+      one_count = [0, 1]
+      if n <= 1:
+          return
+
+      for i in range(2, n + 1):
+          zero_count.append(zero_count[i - 1] + zero_count[i - 2])
+          one_count.append(one_count[i - 1] + one_count[i - 2])
+      return zero_count, one_count
+
+  n = int(input())
+  zero_count, one_count = count_fibonacci(40)
+
+  for _ in range(n):
+      m = int(input())
+      print('%d %d' %(zero_count[m], one_count[m]))
+      
+1904. 01타일
+  n = int(input())
+  dp = [0] * 1000001
+  dp[1] = 1
+  dp[2] = 2
+
+  for k in range(3, n + 1):
+      dp[k] = (dp[k-1] + dp[k-2]) % 15746
+
+  print(dp[n])
