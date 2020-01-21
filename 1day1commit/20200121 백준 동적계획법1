@@ -1,0 +1,121 @@
+< 동적 계획법 1 >
+1932. 정수 삼각형
+* 해답 *
+  n = int(input())
+  t = [list(map(int, input().split())) for _ in range(n)]
+
+  for i in range(n - 1):
+      for j in range(len(t[i + 1])):
+          if j == 0:
+              t[i + 1][j] = t[i][j] + t[i + 1][j]
+          elif j == len(t[i + 1]) - 1:
+              t[i + 1][j] = t[i][-1] + t[i + 1][-1]
+          else:
+              t[i + 1][j] = max(t[i][j - 1], t[i][j]) + t[i + 1][j] 
+
+  print(max(t[-1]))
+  
+* 오류 정리 * (해답까지의 과정에서 발생한 오류들)
+
+5
+7
+3 8
+8 1 0
+2 7 4 4
+4 5 2 6 5
+Traceback (most recent call last):
+  File "c:/Users/sue14/Documents/baekjoon.py", line 211, in <module>
+    t[i][j] += max(t[i - 1][j - 1], t[i - 1][j])
+IndexError: list index out of range
+/Users/sue14/Documents/baekjoon.py
+5
+7
+3 8
+8 1 0
+2 7 4 4
+4 5 2 6 5
+Traceback (most recent call last):
+  File "c:/Users/sue14/Documents/baekjoon.py", line 211, in <module>
+    t[i][j] = max(t[i - 1][j - 1], t[i - 1][j]) + t[i][j]
+IndexError: list index out of range
+/Users/sue14/Documents/baekjoon.py
+5
+7
+3 8
+8 1 0
+2 7 4 4
+4 5 2 6 5
+Traceback (most recent call last):
+    k += 1
+NameError: name 'k' is not defined
+PS C:\Users\sue14> & C:/Users/sue14/AppData/Local/Programs/Python/Python37/python.exe c:/Users/sue14/Documents/baekjoon.py
+5
+7
+3 8
+8 1 0
+2 7 4 4
+4 5 2 6 5
+34
+/Users/sue14/Documents/baekjoon.py
+5
+7
+3 8
+8 1 0
+2 7 4 4
+4 5 2 6 5
+Traceback (most recent call last):
+  File "c:/Users/sue14/Documents/baekjoon.py", line 206, in <module>
+    t[i + 1][j] = t[i][j] + t[i + 1][j]
+IndexError: list index out of range
+/Users/sue14/Documents/baekjoon.py
+5
+7
+3 8
+8 1 0
+2 7 4 4
+4 5 2 6 5
+Traceback (most recent call last):
+  File "c:/Users/sue14/Documents/baekjoon.py", line 210, in <module>
+    t[i + 1][j] = max(t[i][j - 1], t[i][j]) + t[i + 1][j]
+IndexError: list index out of range
+/Users/sue14/Documents/baekjoon.py
+5
+7
+3 8
+8 1 0
+2 7 4 4
+4 5 2 6 5
+Traceback (most recent call last):
+  File "c:/Users/sue14/Documents/baekjoon.py", line 207, in <module>
+    elif j == len(t[i + 1] - 1):
+TypeError: unsupported operand type(s) for -: 'list' and 'int'
+PS C:\Users\sue14> & C:/Users/sue14/AppData/Local/Programs/Python/Python37/python.exe c:/Users/sue14/Documents/baekjoon.py
+
+2579. 계단 오르기
+  stair_count = int(input())
+  stair_scores_list = []
+  stair_scores_list.append(0)
+
+  for _ in range(stair_count):
+      stair_scores_list.append(int(input()))
+
+  sum_of_score = []
+  sum_of_score.append(0)
+  sum_of_score.append(stair_scores_list[1])
+  #한 칸만에 이이서 했을때 index = 2
+  sum_of_score.append(stair_scores_list[1] + stair_scores_list[2])
+  #두 칸만에 건너서 했을때 index = 3
+  sum_of_score.append(max(stair_scores_list[3] + stair_scores_list[1], stair_scores_list[3] + stair_scores_list[2]))
+
+  for i in range(4, stair_count + 1):
+      sum_of_score.append(max(stair_scores_list[i] + sum_of_score[i - 2],
+                              stair_scores_list[i] + stair_scores_list[i - 1] + sum_of_score[i - 3]))
+
+  print(sum_of_score[-1])
+
+
+
+
+
+
+
