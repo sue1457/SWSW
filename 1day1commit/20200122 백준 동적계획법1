@@ -1,0 +1,77 @@
+< 동적 계획법 1 >
+1463. 1로 만들기
+* 메모리 초과 *
+  n = int(input())
+  result = [n]
+  count = 0
+
+  while True:
+      if n == 1:          #result 안의 모든 n을 비교하는 과정에서 메모리 초과
+          print(count)
+          break
+      calculate = []
+      for i in result:
+          if i % 2 == 0:
+              calculate.append(i / 2)
+          if i % 3 == 0:
+              calculate.append(i / 3)
+          calculate.append(i - 1)
+      result = calculate
+      count += 1
+      
+* 해답 *
+  n = int(input())
+  result = [n]
+  count = 0
+
+  while True:
+      if 1 in result:     #1이 result 안에 있는지만 판별해서 메모리 초과 에러 해결
+          print(count)
+          break
+      calculate = []
+      for i in result:
+          if i % 2 == 0:
+              calculate.append(i / 2)
+          if i % 3 == 0:
+              calculate.append(i / 3)
+          calculate.append(i - 1)
+      result = calculate
+      count += 1
+      
+10844. 쉬운 계단 수
+  n = int(input())
+  dp = [[0 for _ in range(10)] for _ in range(101)]
+
+  for i in range(1, 10):
+      dp[1][i] = 1
+  for i in range(2, n + 1):
+      for j in range(10):
+          if j == 0:
+              dp[i][j] = dp[i - 1][1]
+          elif j == 9:
+              dp[i][j] = dp[i - 1][8]
+          else:
+              dp[i][j] = dp[i - 1][j - 1] + dp [i - 1][j + 1]
+
+  print(sum(dp[n]) % 1000000000)
+  
+0은 오른쪽 대각, 9는 왼쪽 대각만 존재한다는 것을 감안하여 j(마지막 자리 수)가 0일 때, 9일 때,
+나머지(2 ~ 8)일 때로 나눠서 더해주는 점화식을 사용하여 나타내었다.
+
+2156. 포도주 시식
+  wine = int(input())  #총 와인 개수
+  wine_capa = [0]  #마실 와인의 양
+  wine_sum = [0 for _ in range(wine + 1)]  #마신 와인 양의 합
+
+  for _ in range(wine):
+      wine_capa.append(int(input()))
+
+  for i in range(1, wine + 1):
+      if i == 1:
+          wine_sum[1] = wine_capa[1]
+      elif i == 2:
+          wine_sum[2] = wine_capa[1] + wine_capa[2]
+      else:
+          wine_sum[i] = max(wine_sum[i - 3] + wine_capa[i - 1] + wine_capa[i], wine_sum[i - 2] + wine_capa[i], wine_sum[i - 1])
+
+  print(wine_sum[wine])  
