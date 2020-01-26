@@ -349,7 +349,7 @@ elif x==9 or x==10 or x==11 :
 =======================================================
 =======================================================
 
-EXPLAINING AND HARNESSING ADVERSARIAL EXAMPLES 논문 학습
+< EXPLAINING AND HARNESSING ADVERSARIAL EXAMPLES  - Ian J. Goodfellow > 논문 학습
 
 머신러닝에서 중요한 문제점이 되는 Adversarial Examples의 원인과 중요성 및
 FGSM(Fast Gradient Sigh Method) 을 사용한 생성방법과 생성한 Adversarial Examples의
