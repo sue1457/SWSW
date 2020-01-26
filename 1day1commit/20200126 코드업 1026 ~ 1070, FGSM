@@ -345,3 +345,16 @@ elif x==6 or x==7 or x==8 :
     print("summer")
 elif x==9 or x==10 or x==11 :
     print("fall")
+
+=======================================================
+=======================================================
+
+EXPLAINING AND HARNESSING ADVERSARIAL EXAMPLES 논문 학습
+
+머신러닝에서 중요한 문제점이 되는 Adversarial Examples의 원인과 중요성 및
+FGSM(Fast Gradient Sigh Method) 을 사용한 생성방법과 생성한 Adversarial Examples의
+학습 방법 을 알아보았다.
+
+원문 - [https://arxiv.org/pdf/1412.6572.pdf]
+해석 블로그 - [https://leedakyeong.tistory.com/entry/%EB%85%BC%EB%AC%B8-FGSM-%EB%A6%AC%EB%B7%B0-EXPLAINING-AND-HARNESSING-ADVERSARIAL-EXAMPLES]
+해석 유튜브 - [https://www.youtube.com/watch?v=TfDO2guk0ug&t=40s]
