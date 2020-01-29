@@ -116,7 +116,7 @@ for i in range(1, n):
     a = Fraction(ring_len[0], 1) / Fraction(ring_len[i], 1)
     print(a.numerator,'/',a.denominator, sep = '')
     
-fractions 라이브러리의 Fraction 모듈을 활용해서 분수 형태의 a 를 만들고,
+fractions 라이브러리의 Fraction 기능을 활용해서 분수 형태의 a 를 만들고,
 numerator와 denominator 함수를 사용해서 a의 분자와 분모를 따로 표현하였다.
 
 
