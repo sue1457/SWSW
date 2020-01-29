@@ -1,0 +1,203 @@
+< 수학 3 >
+
+5086. 배수와 약수
+
+while True:
+    a, b = map(int, input().split())
+    
+    if a == 0 and b == 0:
+        break
+
+    if b % a == 0:
+        print('factor')
+    elif a % b == 0:
+        print('multiple')
+    else:
+        print('neither')
+        
+
+1037. 약수
+
+n = int(input())
+a = list(map(int, input().split()))
+a.sort()
+print(a[0] * a[-1])
+
+최소공약수와 최대공약수를 곱하면 최소공배수가 된다.
+
+
+11653. 소인수분해
+
+n = int(input())
+i = 2
+while n != 1:
+    if n % i == 0:
+        n /= i
+        print(i)
+    else:
+        i += 1
+        
+if문 사용시 중복되는 약수를 연속으로 출력할 수 없어서 while문을 사용하였다.
+
+
+2609.	최대공약수와 최소공배수
+
+a, b = map(int, input().split())
+i = a
+
+while True:
+    if a % i == 0 and b % i == 0:
+        print(i)
+        break
+    else:
+        i -= 1
+
+while True:
+    if i % a == 0 and i % b == 0:
+        print(i)
+        break
+    else:
+        i += 1
+        
+while문을 사용해서 각각의 경우를 따로 구했지만, 문제가 복잡해질 경우 math 라이브러리의
+gcd(최대공약수)와 lcm(a * b 를 최대공약수로 나눈 값 = 최소공배수)를 사용하여 간단하게 구할 수 있다.
+
+
+2981. 검문
+
+import math
+n = int(input())
+s = []
+a = []
+gcd = 0 # 최대공약수
+
+for i in range(n):
+    s.append(int(input()))
+    if i == 1:
+        gcd = abs(s[1] - s[0])
+    gcd = math.gcd(abs(s[i] - s[i - 1]), gcd)   # gcd = 4
+
+gcd_a = int(gcd ** 0.5)     #범위 설정을 위한 루트 씌우기
+
+for i in range(2, gcd_a + 1):   # gcd의 약수들을 a에 넣는다
+    if gcd % i == 0:
+        a.append(i)
+        a.append(gcd // i)
+
+a.append(gcd)
+a = list(set(a))
+a.sort()
+for i in a:
+    print(i, end = ' ')
+    
+주어진 숫자 N이 오름차순이라고 가정하고, 나눠지는 숫자는 M, 나머지를 R이라고 했을때
+N[0] = K[0] * M + R
+N[1] = K[1] * M + R
+N[2] = K[2] * M + R
+나머지 R을 없애기 위해서는 N[i]에서 N[i - 1]을 빼주면 되는데 N[1]에서 N[0]을 빼주면
+N[1] - N[0] = M * (K[1] - K[0]) 처럼 될 수 있고, K[1] - K[0]은 N[1] - N[0]의 약수임을 알 수 있다.
+
+주어진 숫자 N이 6, 34, 38이라고 했을때 34 - 6은 28이고, 28의 약수를 구하면 2, 4, 7, 14, 28이 될 수 있다.
+38 - 34는 4이고, 4의 약수를 구하면 2, 4가 될 수 있다. 공통된 약수를 구하면 2, 4가 된다.
+이는 28과 4의 최대공약수의 약수임을 알 수 있다.
+
+마지막으로 약수를 구할때 최대공약수만큼 for문을 돌리면 시간초과가 나기때문에
+최대공약수의 제곱근까지만 for문을 돌려주고 나머지는 계산으로 구해준다.
+
+
+3036. 링
+
+from fractions import Fraction
+
+n = int(input())
+ring_len = list(map(int, input().split()))
+
+for i in range(1, n):
+    a = Fraction(ring_len[0], 1) / Fraction(ring_len[i], 1)
+    print(a.numerator,'/',a.denominator, sep = '')
+    
+fractions 라이브러리의 Fraction 모듈을 활용해서 분수 형태의 a 를 만들고,
+numerator와 denominator 함수를 사용해서 a의 분자와 분모를 따로 표현하였다.
+
+
+11050. 이항 계수 1
+
+import math
+n, k = map(int, input().split())
+a = math.factorial(n) / (math.factorial(k) * math.factorial(n - k))
+print(int(a))
+
+math 라이브러리의 factorial 함수를 사용해서 이항 계수를 구하는 간단한 문제였다.
+
+
+11051. 이항 계수 2
+
+import math
+n, k = map(int, input().split())
+a = math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
+print(int(a) % 10007)
+
+이항 계수를 보기 쉽게 표현한 그림이 파스칼의 삼각형이다.
+
+
+9375. 패션왕 신해빈
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    wear = []
+
+    for i in range(n):
+        wear.append(input().split()[1])
+
+    set_wear = tuple(set(wear))
+    type = []
+
+    for i in range(len(set_wear)):
+        type.append(wear.count(set_wear[i]))
+    
+    result = 1
+
+    for i in type:
+        result *= (i + 1)
+    
+    print(result - 1)
+    
+두 날을 같이 고려해야 하는 줄 알고 장 시간 뻘짓을 한 문제이다. 이항 계수를 적용해서 생각보다 간단하게 풀 수 있었다.
+
+
+1676.	팩토리얼 0의 개수
+
+n = int(input())
+print(n // 5 + n // 25 + n // 125)
+
+n! 에서 n이 5 ~ 9 에선 0이 한 개 , 10부턴 0이 두 개로 늘어나면서 5에 나눠지는 몫에 따라 0의 개수가 달라지는
+규칙을 파악하면 너무나도 쉽게 나타낼 수 있는 문제였다.
+
+
+2004.	조합 0의 개수
+
+def five_count(num):
+    answer = 0
+    while num != 0:
+        num //= 5
+        answer += num
+    return answer
+
+def two_count(num):
+    answer = 0
+    while num != 0:
+        num //= 2
+        answer += num
+    return answer
+
+n, m = map(int, input().split())
+
+if m == 0:
+    print(0)
+else:
+    print(min(two_count(n) - two_count(m) - two_count(n - m), five_count(n) - five_count(m) - five_count(n - m)))
+
+10은 2와 5로 구성되므로 nCm 내에 있는 2와 5 중 최소값이 무엇인지 알아낸 뒤 출력하면 된다.
+ 
