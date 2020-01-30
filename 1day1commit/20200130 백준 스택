@@ -127,7 +127,10 @@ while True:
         print('no')
         
         
-1874. 스택 수열
+1874. 스택 수열    ==> 스택을 가장 잘 
+
+import sys
+input = sys.stdin.readline
 
 n = int(input())
 stack = []
@@ -151,4 +154,4 @@ if not stack:
     for i in plus_minus:
         print(i)
 else:
-    print('NO')        
+    print('NO')               
