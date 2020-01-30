@@ -1,0 +1,154 @@
+< 스택 >
+
+10828. Stack
+
+import sys
+
+def push(n):
+    stack.append(n)
+
+def pop():
+    try:
+        print(stack.pop())
+    except:
+        print(-1)
+
+def size():
+    return len(stack)
+
+def empty():
+    if len(stack) == 0:
+        print(1)
+    else:
+        print(0)
+
+def top():
+    try:
+        print(stack[-1])
+    except:
+        print(-1)
+
+a = int(sys.stdin.readline())
+stack = []
+for _ in range(a):
+    cmd = sys.stdin.readline().split()
+    if cmd[0] == 'push':
+        push(cmd[1])
+    elif cmd[0] == 'pop':
+        pop()
+    elif cmd[0] == 'size':
+        print(size())
+    elif cmd[0] == 'empty':
+        empty()
+    elif cmd[0] == 'top':
+        top()
+        
+input()과 sys 모듈을 활용한 sys.stdin.readline()의 속도 차이를 확인할 수 있는 문제였다.
+
+
+10773. 제로
+
+import sys
+
+k = int(sys.stdin.readline())
+money_list = []
+
+for i in range(k):
+    n = int(sys.stdin.readline())
+
+    if n == 0:
+        del money_list[-1]
+    else:
+        money_list.append(n)
+
+print(sum(money_list))
+
+
+9012. 괄호
+
+import sys
+
+t = int(sys.stdin.readline())
+
+for _ in range(t):
+    parenthesis = list(sys.stdin.readline())
+    close_cnt = 0
+
+    while len(parenthesis) != 0:
+        if close_cnt < 0:
+            break
+        res = parenthesis.pop()
+        
+        if res == '(':
+            close_cnt -= 1
+        elif res == ')':
+            close_cnt += 1
+
+    if close_cnt == 0:
+        print('YES')
+    else:
+        print('NO')
+        
+break 위치의 중요성을 다시 깨달을 수 있었던 문제였다.
+
+
+4949. 균형잡힌 세상
+
+import sys
+input = sys.stdin.readline
+
+while True:
+    parenthesis = input().rstrip()
+    stack = []
+    answer = True
+
+    for cha in parenthesis:
+        if cha == '(' or cha == '[':
+            stack.append(cha)
+        elif cha == ')':
+            if stack and stack[-1] == '(':
+                stack.pop()
+            else:
+                answer = False
+                break
+        elif cha == ']':
+            if stack and stack[-1] == '[':
+                stack.pop()
+            else:
+                answer = False
+                break
+    
+    if parenthesis == '.':
+        break
+    
+    if answer and not stack:
+        print('yes')
+    else:
+        print('no')
+        
+        
+1874. 스택 수열
+
+n = int(input())
+stack = []
+check = []
+plus_minus = []
+
+for i in range(n):
+    check.append(int(input()))
+idx = 0
+
+for i in range(1, n + 1):
+    stack.append(i)
+    plus_minus.append('+')
+
+    while idx < n and len(stack) != 0 and check[idx] == stack[-1]:
+        stack.pop()
+        plus_minus.append('-')
+        idx += 1
+
+if not stack:
+    for i in plus_minus:
+        print(i)
+else:
+    print('NO')        
