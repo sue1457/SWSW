@@ -1,0 +1,63 @@
+< 큐, 덱 >
+
+1021. 회전하는 큐
+
+import sys
+from collections import deque
+
+n, m = map(int, sys.stdin.readline().split())
+q = deque()
+
+for i in range(n):
+    q.append(i + 1)
+
+want = map(int, sys.stdin.readline().split())
+answer = 0
+
+for a in want:
+    i = 0
+    while a != q[i]:
+        i += 1
+    if len(q) - i < i:
+        i = len(q) - i
+    else:
+        i = -i
+    q.rotate(i)
+    answer += abs(i)
+    q.popleft()
+
+print(answer)
+
+
+
+5430. AC
+
+* 시간 초과 *
+import sys
+
+for i in range(int(sys.stdin.readline())):
+    cmds = list(sys.stdin.readline())  
+    lens = int(sys.stdin.readline())
+    lists = list(sys.stdin.readline()[1:-1].split(','))
+
+    for cmd in cmds:
+        try:
+            if cmd == 'R':
+                lists.reverse()
+            elif cmd == 'D':
+                del lists[0]
+                lens -= 1
+        except:
+            sys.stdout.write('error\n')
+            break
+    
+    for i in range(lens):
+        if i == 0:
+            sys.stdout.write('[')
+        if i != lens - 1:
+            sys.stdout.write(lists[i]+',')
+        else:
+            sys.stdout.write(lists[i]+']')
+            
+백준 실행 결과 시간 초과라는 결과가 뜨지만, VSC로 실행해본 결과 실행 결과도 제대로 나오지 않았다.
+내일 다시 살펴보도록 하자.
