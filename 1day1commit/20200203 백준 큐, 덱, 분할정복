@@ -1,0 +1,149 @@
+< 큐, 덱 >
+
+5430. AC
+
+case = int(input())
+
+for _ in range(case):
+    cmds = list(input())
+    lens = int(input())
+    arr = eval(input())
+
+    error = False
+    R_count = 0
+    D_front = 0
+
+    for cmd in cmds:
+        if cmd == 'R':
+            R_count += 1
+        else:
+            try:
+                if R_count % 2 == 0:
+                    D_front += 1
+                else:
+                    arr.pop()
+            except:
+                error = True
+                break
+
+    if error or D_front > len(arr):
+        print('error')
+        continue
+    
+    if R_count % 2 == 0:
+        answer = arr[D_front:]
+    else:
+        answer = list(reversed(arr[D_front:]))
+
+    print('[', end = '')
+    for i in range(len(answer)):
+        if i == len(answer) - 1:
+            print(answer[i], end = '')
+        else:
+            print('%s,' %(answer[i]), end = '')
+    print(']')
+    
+
+< 분할 정복 >
+
+2630. 색종이 만들기
+
+import sys
+n = int(sys.stdin.readline())
+matrix = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+
+count_one = 0
+count_zero = 0
+
+def check(x, y, n):
+    global count_one, count_zero
+    count_temp = 0
+
+    for i in range(x, x + n):
+        for j in range(y, y + n):
+            if matrix[i][j]:
+                count_temp += 1
+    if not count_temp:
+        count_zero += 1
+    elif count_temp == n**2:
+        count_one += 1
+    else:
+        check(x, y, n // 2)
+        check(x + n // 2, y, n // 2)
+        check(x, y + n // 2, n // 2)
+        check(x + n // 2, y + n // 2, n // 2)
+    return
+    
+check(0, 0, n)
+print(count_zero)
+print(count_one)
+
+
+1992. 쿼드트리
+
+x = int(input())
+matrix = [input() for _ in range(x)]
+ 
+def quad(x1, y1, x2, y2, n) :
+    
+    if n == 1 :
+        return matrix[y1][x1]
+ 
+    a = n // 2
+    
+    # 4등분으로 분할    
+    r1 = quad(x1, y1, x1+a, y1+a, a)
+    r2 = quad(x1+a,y1, x1+n, y1+a, a)
+    r3 = quad(x1, y1+a, x1+a, y1+n, a)
+    r4 = quad(x1+a, y1+a, x1+n, y1+n, a)
+    
+    # 모두 같은 값일 경우 하나만 출력
+    if r1==r2==r3==r4 and len(r1) == 1 :
+        return r1
+ 
+    return "(" + r1 + r2 + r3 + r4 + ")"
+ 
+ 
+print(quad(0,0,x,x,x))
+
+
+1780. 종이의 개수
+
+import sys
+n = int(sys.stdin.readline())
+matrix = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+
+count_minus = 0
+count_zero = 0
+count_one = 0
+
+def check(x, y, n):
+    global matrix, count_minus, count_zero, count_one 
+    type = matrix[y][x]
+    k = n // 3
+
+    for i in range(x, x + n):
+        for j in range(y, y + n):
+            if matrix[j][i] != type:
+                check(x, y, k)
+                check(x, y + k, k)
+                check(x, y + 2 * k, k)
+                check(x + k, y + 2 * k, k)
+                check(x + k, y, k)
+                check(x + 2 * k, y, k)
+                check(x + 2 * k, y + k, k)
+                check(x + k, y + k, k)
+                check(x + 2 * k, y + 2 * k, k)
+                return
+
+    if matrix[y][x] == -1:
+        count_minus += 1
+    elif matrix[y][x] == 0:
+        count_zero += 1
+    else:
+        count_one += 1
+    
+check(0, 0, n)
+print(count_minus)
+print(count_zero)
+print(count_one)
