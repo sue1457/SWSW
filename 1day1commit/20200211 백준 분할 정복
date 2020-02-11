@@ -1,0 +1,35 @@
+< 분할 정복 >
+
+1629. 곱셈
+
+* 시간 초과 1 *  
+import sys
+a, b, c = map(int, sys.stdin.readline().split())
+print((a ** b) % c)
+
+* 시간 초과 2 *
+a, b, c = map(int, input().split())
+print((a ** b) % c)
+
+두 코드 모두 예제는 정상작동 되었지만, 시간 초과라는 결과가 나타났다.
+
+a, b, c = map(int, input().split())
+print(pow(a, b, c))
+
+pow 안의 세 번째 요소가 a의 b승에 대한 나머지를 구해준다는 점을 알 수 있었다.
+
+
+11401. 이항 계수 3
+
+* 런타임 에러 *
+n, k = map(int, input().split())
+
+def bc(n, k):
+    if k == n - 1 or k == 1:
+        return n
+    else:
+        return bc(n - 1, k - 1) + bc(n - 1, k)
+
+print(bc(n, k) % 1000000007)
+
+하 내일다시..
