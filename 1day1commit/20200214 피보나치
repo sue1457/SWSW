@@ -1,0 +1,155 @@
+< 피보나치 수열 알고리즘을 해결하는 5가지 방법 >
+
+1. 기본 재귀적 풀이
+
+def fibo(n):
+    if n >= 2:
+        return fibo(n-1) + fibo(n-2)
+    else:
+        return n
+
+for n in range(1, 11):
+    print(n, fibo(n))
+    
+n 이 0이나 1일 때는 값도 0, 1이기 때문에 그대로 반환하면 되고, 2 이상일 때만 재귀 함수 두개로 분기해 
+값을 반환한다. 시간 복잡도는 함수가 한 번 호출되면 다시 두 번 호출되기 때문에 지수적으로 증가해 O(2^n)이 된다.
+
+
+2. 반복적 풀이
+
+def fibo(n):
+    if n < 2:
+        return n
+    
+    a, b = 0, 1
+    for i in range(n-1):
+        a, b = b, a + b
+    return b
+
+for n in range(1, 11):
+    print(n, fibo(n))
+    
+n 이 2 미만일 때는 그대로 반환한다. n 이 2 이상일 때는 n-1 번만큼 반복문을 시행한다. 그 이유는 
+0번째 값 a 와 첫 번째 값 b 를 계속 반복하면서 원하는 값을 만들텐데, n 이 2일 때는 단 한 번(n-1)만 
+계산하면 원하는 값을 만들 수 있기 때문이다. 그리고 한 번의 반복마다 ‘a, b = b, a + b’를 시행한다. 
+파이썬에서 이와 같이 대입을 사용하면, ‘a = b’, ‘b = a + b’와 같이 대입이 이루어지는데 이는 
+파이썬의 packing & unpacking과 관련이 있다. 새로 만든 b 에 이전의 a, b 값을 더해 새로운 피보나치 값을 
+만들어 나간다. 반복문이 끝나면 b 가 n 번째 피보나치 수가 되며 이를 반환하면 된다.
+앞선 재귀에 비해 매우 효율적인 방법이며 시간 복잡도는 O(n)이 된다.
+
+
+3. 동적 계획법을 사용한 풀이
+
+  3.1 반복적 동적 계획법 풀이
+
+  def fibo(n):
+      if n < 2:
+          return n
+      cache = [0 for _ in range(100+1)]
+      cache[1] = 1
+
+      for i in range(2, 100+1):
+          cache[i] = cache[i-1] + cache[i-2]
+
+      return cache[n]
+
+  print(fibo(100))
+
+  3.2 재귀적 동적 계획법 풀이
+
+  def fibo(n):
+      cache = [-1 for _ in range(n+1)]
+
+      def iterate(n):
+          if n < 2:
+              return n
+
+          if cache[n] != -1:
+              return cache[n]
+
+          cache[n] = iterate(n-1) + iterate(n-2)
+          return cache[n]
+
+      return iterate(n)
+
+  for n in range(1, 11):
+      print(n, fibo(n))
+
+  재귀적 풀이가 반복적 풀이와 다르게 가져야 하는 조건은 기저 사례 즉, 탈출 조건을 가지고 있어야 한다는 점이다.
+
+  *  파이썬 함수의 동작방식을 활용한 방법을 사용한 문제 풀이 *
+
+  def fibo(n, __cache = {0:0, 1:1}):
+      if n in __cache:
+          return __cache[n]
+
+      __cache[n] = fibo(n-1) + fibo(n-2)
+      return __cache[n]
+
+  print(fibo(100))
+
+  코드 동작 방식은 일반적인 재귀적 동적 계획법 방법과 같다. 여기서 눈여겨 볼 것은 ‘__cache’ 변수이다. 
+  파이썬의 기본 자료구조인 dict 를 사용했는데 dict 는 배열에 비해 자료구조의 크기가 유동적으로 커질 수 있다는 
+  장점이 있기에 dict 를 사용했다. 그보다도 더 의미가 있는 것은 캐시 자료구조가 함수 내부가 아닌 정의부에 
+  선언되었다는 것이다. 일반적으로 함수 안에 선언한 데이터는 함수가 호출될 때 생성되며 함수가 종료될 때 
+  폐기되고 자원이 회수된다. 그런데 위와 같이 원하는 데이터를 함수 정의부에 적으면 그 자료구조는 함수가 
+  정의될 때 생성되어 함수가 호출될 때나, 종료될 때나 상관없이 함수 자체가 메모리에서 지워지기 전까지는 
+  값이 유지된다. 우리의 함수에서는 실행 시에 캐시에 변화를 가하는데, 그 변화까지도 유지된다. 함수 정의 시에 
+  ‘__cache’를 미리 선언했기 때문에, 함수 실행 시에는 n 만 인자로 넘기면 된다. 그것을 알리기 위해서 
+  캐시 이름 앞에 ‘__‘를 불였다. 알다시피 파이썬에서 변수명을 정할 때 ‘_‘와 ‘__‘를 붙이는 것은 특별한 의미가 
+  있는데, 그 중에서도 ‘__‘는 미약한 ‘private’의 의미로 ‘이 값은 사용자가 건드리지 말라’는 의미를 함축한다. 
+  실제로 여기서는 캐시를 건드릴 이유가 없고 건드려서도 안 된다. 위와 같이 쓰는 것은 상당한 주의를 요한다. 
+  함수 실행 시에 캐시가 꾸준히 변화하고 그 값이 보존되기에 함수가 계속 실행되면서 예기치 못한 에러를 
+  맞닥뜨릴 수도 있기 때문이다. 
+  
+  
+4. 행렬 곱셈을 활용한 풀이
+
+n 번째 피보나치 수를 Fn이라고 한다. (2x2 행렬에서 [0,1], [1,0]에 해당하는 부분)
+
+def fibo(n):
+    SIZE = 2
+    ZERO = [[1, 0], [0, 1]]
+    BASE = [[1, 1], [1, 0]]
+
+    def square_matrix_mul(a, b, size=SIZE):
+        new = [[0 for _ in range(size)] for _ in range(size)]
+
+        for i in range(size):
+            for j in range(size):
+                for k in range(size):
+                    new[i][j] += a[i][k] * b[k][j]
+        
+        return new
+
+    def get_nth(n):
+        matrix = ZERO.copy()
+        k = 0
+        tmp = BASE.copy()
+
+        while 2 ** k <= n:
+            if n & (1 << k) != 0:
+                matrix = square_matrix_mul(matrix, tmp)
+            k += 1
+            tmp = square_matrix_mul(tmp, tmp)
+        
+        return matrix
+    
+    return get_nth(n)[1][0]
+
+print(fibo(100))
+
+
+5. 일반항 사용
+
+def fibo(n):
+    sqrt_5 = 5 ** (1/2)
+    ans = 1 / sqrt_5 * ( ((1 + sqrt_5) / 2) ** n  - ((1 - sqrt_5) / 2) ** n )
+    return int(ans)
+
+print(fibo(100))
+
+짧은 방정식으로도 피보나치 수열이 간단하게 수행되어 신기했다.
+
+
+[자료출처] - (https://shoark7.github.io/programming/algorithm/%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%84-%ED%95%B4%EA%B2%B0%ED%95%98%EB%8A%94-5%EA%B0%80%EC%A7%80-%EB%B0%A9%EB%B2%95.html)
