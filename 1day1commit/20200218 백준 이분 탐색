@@ -1,0 +1,50 @@
+< 이분 탐색 >
+
+1920. 수 찾기
+
+import sys
+
+def find():
+    N = int(sys.stdin.readline())
+    arrN = list(map(int, sys.stdin.readline().split(' ')))
+    M = int(sys.stdin.readline())
+    arrM = list(map(int, sys.stdin.readline().split(' ')))
+
+    arrN.sort()
+
+    for i in range(M):
+        flag = 0
+
+        left = 0
+        right = len(arrN)
+
+    while left < right:
+        mid = (left + right) // 2
+
+        if left == mid and arrM[i] != arrN[mid]:
+            break
+        
+        if arrM[i] > arrN[mid]:
+            left == mid
+        elif arrM[i] < arrN[mid]:
+            right == mid
+        elif arrM[i] == arrN[mid]:
+            flag = 1
+            print(1)
+            break
+    
+    if flag == 0:
+        print(0)
+
+find()
+
+
+***** VSC 오류 *****
+예외:
+System.ArgumentOutOfRangeException: 값은 0보다 크거나 같아야 하며 
+해당 범위에서 콘솔의 버퍼 크기보다 작아야 합니다.
+매개 변수 이름: left
+실제 값은 -1입니다.     - line 2, line 33
+
+***** 백준 오류 *****
+시간 
